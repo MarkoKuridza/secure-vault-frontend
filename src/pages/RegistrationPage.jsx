@@ -1,7 +1,7 @@
 import { Box, Paper, Typography } from "@mui/material";
-import LoginForm from "../components/LoginForm";
+import RegistrationForm from "../components/RegistrationForm";
 
-function LoginPage() {
+function RegistrationPage() {
   return (
     <Box
       sx={{
@@ -17,24 +17,18 @@ function LoginPage() {
         elevation={2}
         sx={{
           width: "100%",
-          maxWidth: 400,
+          maxWidth: 440,
           p: 4,
           borderRadius: 3,
         }}
       >
-        <Typography
-          variant="h5"
-          fontWeight={600}
-          textAlign="center"
-          mb={3}
-          gutterBottom
-        >
-          Sign in
+        <Typography variant="h5" fontWeight={600} textAlign="center" mb={3}>
+          Create your account
         </Typography>
-        <LoginForm />
+        <RegistrationForm />
       </Paper>
     </Box>
   );
 }
 
-export default LoginPage;
+export default RegistrationPage;

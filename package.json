@@ -1,5 +1,5 @@
 {
-  "name": "secure-vault-front-end",
+  "name": "secure-vault-frontend",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -7,20 +7,23 @@
     "@emotion/styled": "^11.14.1",
     "@mui/icons-material": "^7.3.9",
     "@mui/material": "^7.3.9",
+    "@stomp/stompjs": "^7.3.0",
     "@testing-library/dom": "^10.4.1",
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.3.2",
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.13.6",
     "dotenv": "^17.3.1",
+    "qrcode.react": "^4.2.0",
     "react": "^19.2.4",
     "react-dom": "^19.2.4",
     "react-router-dom": "^7.13.1",
     "react-scripts": "5.0.1",
+    "sockjs-client": "^1.6.1",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "set NODE_OPTIONS=--openssl-legacy-provider&& set HTTPS=true&& set SSL_CRT_FILE=./certs/frontend.crt&& set SSL_KEY_FILE=./certs/frontend.key&& set PORT=4000&& react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
@@ -42,5 +45,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "http-proxy-middleware": "^4.0.0"
   }
 }

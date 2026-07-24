@@ -1,8 +1,0 @@
-
-export const ROLES = {
-    ADMIN: "ROLE_ADMIN",
-    TEAM_LEAD: "ROLE_TEAM_LEAD",
-    DEVELOPER: "ROLE_DEVELOPER",
-};
-
-export const VALID_ROLES = ["ROLE_ADMIN", "ROLE_TEAM_LEAD", "ROLE_DEVELOPER"];

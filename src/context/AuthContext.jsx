@@ -1,40 +1,69 @@
-import { createContext, useContext, useEffect, useState } from "react";
-import { validate } from "../services/AuthService";
+import { createContext, useContext, useEffect, useRef, useState } from "react";
+import { refreshToken, validate } from "../services/AuthService";
 
 const AuthContext = createContext(null);
 
 export function AuthProvider({ children }) {
+  const [roles, setRoles] = useState([]);
+  const [isAuthenticated, setIsAuthenticated] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-    const [roles, setRoles] = useState([]);
-    const [isAuthenticated, setIsAuthenticated] = useState(false);
-    const [loading, setLoading] = useState(true);
+  const hasRefreshed = useRef(false);
 
-    useEffect(() => {
-        validate()
-            .then(() => setIsAuthenticated(true))
-            .catch(() => setIsAuthenticated(false))
-            .finally(() => setLoading(false))
-    }, []);
+  useEffect(() => {
+    checkAuth();
+  }, []);
 
-    const login = (userRoles) => {
-        console.log("AuthContext login called with:", userRoles);
-        setIsAuthenticated(true);
-        setRoles(userRoles);
+  const checkAuth = async () => {
+    setLoading(true);
+    try {
+      const response = await validate();
+      setRoles(response.data || []);
+      setIsAuthenticated(true);
+      return true;
+    } catch (error) {
+      if (!hasRefreshed.current) {
+        hasRefreshed.current = true;
+
+        try {
+          await refreshToken();
+          const response = await validate();
+          setIsAuthenticated(true);
+          setRoles(response.data || []);
+          return true;
+        } catch {
+          setIsAuthenticated(false);
+          setRoles([]);
+          return false;
+        }
+      }
+      setRoles([]);
+      setIsAuthenticated(false);
+      return false;
+    } finally {
+      setLoading(false);
     }
-    const logout = () => {
-        setIsAuthenticated(false);
-        setRoles([]);
-    }
+  };
 
-    return (
-        <AuthContext.Provider value={{ isAuthenticated, roles, loading, login, logout }}>
-            {children}
-        </AuthContext.Provider>
-    );
+  const login = (userRoles) => {
+    setIsAuthenticated(true);
+    setRoles(userRoles);
+  };
+  const logout = () => {
+    setIsAuthenticated(false);
+    setRoles([]);
+  };
+
+  return (
+    <AuthContext.Provider
+      value={{ isAuthenticated, roles, loading, login, logout, checkAuth }}
+    >
+      {children}
+    </AuthContext.Provider>
+  );
 }
 
 export const useAuth = () => {
-    const context = useContext(AuthContext);
-    console.log("useAuth called, context:", context);
-    return context;
+  const context = useContext(AuthContext);
+  return context;
 };
