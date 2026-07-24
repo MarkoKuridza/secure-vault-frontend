@@ -14,8 +14,17 @@ React Single Page Application for Secure Vault.
 
 ## Running Locally
 
+1. Clone the repository.
+2. Configure the required environment variables.
+3. Install the dependencies:
+
 ```bash
 npm install
+```
+
+4. Start the development server:
+
+```bash
 npm start
 ```
 
