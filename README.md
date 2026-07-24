@@ -30,8 +30,10 @@ npm start
 
 ## Docker
 
-The included Dockerfile is intended to be used by the deployment repository.
-Refer to the **Secure Vault Deployment** repository for containerized deployment.
+This repository includes a Dockerfile used by the deployment repository.
+
+For containerized deployment, see the
+[Secure Vault Deployment](https://github.com/<your-username>/SecureVault-Deployment) repository.
 
 ## Environment Variables
 
