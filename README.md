@@ -33,7 +33,7 @@ npm start
 This repository includes a Dockerfile used by the deployment repository.
 
 For containerized deployment, see the
-[Secure Vault Deployment](https://github.com/<your-username>/SecureVault-Deployment) repository.
+[Secure Vault Deployment](https://github.com/MarkoKuridza/secure-vault-deployment) repository.
 
 ## Environment Variables
 
